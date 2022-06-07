@@ -19,9 +19,9 @@ package javax.net.ssl
 import java.security.SecureRandom
 
 abstract class SSLContextSpi {
-  
+
   def engineCreateSSLEngine(): SSLEngine
 
   def engineInit(km: Array[KeyManager], tm: Array[TrustManager], random: SecureRandom): Unit
-  
+
 }
