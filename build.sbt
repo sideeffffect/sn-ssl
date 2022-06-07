@@ -8,6 +8,8 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 
 ThisBuild / crossScalaVersions := Seq("3.1.2", "2.12.15", "2.13.8")
 
+ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"))
+
 lazy val root = tlCrossRootProject.aggregate(ssl, tests)
 
 lazy val ssl = project
