@@ -16,6 +16,10 @@
 
 package javax.net.ssl
 
+import scala.beans.BeanProperty
+
+import SSLEngineResult._
+
 class SSLEngineResult(
     @BeanProperty status: Status,
     @BeanProperty handshakeStatus: HandshakeStatus,
