@@ -17,5 +17,10 @@
 package java.security
 
 import java.util.Properties
+import scala.beans.BeanProperty
 
-abstract class Provider(name: String, versionStr: String, info: String) extends Properties
+abstract class Provider(
+    @BeanProperty val name: String,
+    @BeanProperty val versionStr: String,
+    @BeanProperty val info: String)
+    extends Properties
