@@ -20,7 +20,7 @@ import org.junit.Assert._
 import org.junit.Test
 
 class SSLParametersTest {
-  
+
   @Test
   def emptyConstructor = {
     val p = new SSLParameters()

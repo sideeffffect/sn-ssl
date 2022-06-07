@@ -16,6 +16,4 @@
 
 package java.security
 
-trait AlgorithmConstraints {
-  
-}
+trait AlgorithmConstraints {}
