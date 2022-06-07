@@ -16,24 +16,16 @@
 
 package javax.net.ssl
 
-import org.junit.Assert._
-import org.junit.Test
+class SSLEngineResult {}
 
-class SSLParametersTest {
+object SSLEngineResult {
 
-  @Test
-  def emptyConstructor() = {
-    val p = new SSLParameters()
-    assertNull(p.getCipherSuites())
-    assertNull(p.getProtocols())
-    assertNull(p.getAlgorithmConstraints())
-    assertNull(p.getEndpointIdentificationAlgorithm())
-    assertNull(p.getServerNames())
-    assertFalse(p.getUseCipherSuitesOrder())
-    assertFalse(p.getWantClientAuth())
-    assertFalse(p.getNeedClientAuth())
-    assertTrue(p.getEnableRetransmissions())
-    assertEquals(0, p.getMaximumPacketSize().toLong)
+  class Status(name: String, ord: Int) extends Enum[Status](name, ord)
+  object Status {
+    val BUFFER_UNDERFLOW = new Status("BUFFER_UNDERFLOW", 0)
+    val BUFFER_OVERFLOW = new Status("BUFFER_OVERFLOW", 1)
+    val OK = new Status("OK", 2)
+    val CLOSED = new Status("CLOSED", 3)
   }
 
 }

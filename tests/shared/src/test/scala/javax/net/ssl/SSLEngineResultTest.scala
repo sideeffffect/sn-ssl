@@ -19,21 +19,23 @@ package javax.net.ssl
 import org.junit.Assert._
 import org.junit.Test
 
-class SSLParametersTest {
+class SSLEngineResultTest {
 
   @Test
-  def emptyConstructor() = {
-    val p = new SSLParameters()
-    assertNull(p.getCipherSuites())
-    assertNull(p.getProtocols())
-    assertNull(p.getAlgorithmConstraints())
-    assertNull(p.getEndpointIdentificationAlgorithm())
-    assertNull(p.getServerNames())
-    assertFalse(p.getUseCipherSuitesOrder())
-    assertFalse(p.getWantClientAuth())
-    assertFalse(p.getNeedClientAuth())
-    assertTrue(p.getEnableRetransmissions())
-    assertEquals(0, p.getMaximumPacketSize().toLong)
+  def status() = {
+    import SSLEngineResult.Status._
+
+    assertEquals(0, BUFFER_UNDERFLOW.ordinal().toLong)
+    assertEquals("BUFFER_UNDERFLOW", BUFFER_UNDERFLOW.name())
+
+    assertEquals(1, BUFFER_OVERFLOW.ordinal().toLong)
+    assertEquals("BUFFER_OVERFLOW", BUFFER_OVERFLOW.name())
+
+    assertEquals(2, OK.ordinal().toLong)
+    assertEquals("OK", OK.name())
+
+    assertEquals(3, CLOSED.ordinal().toLong)
+    assertEquals("CLOSED", CLOSED.name())
   }
 
 }

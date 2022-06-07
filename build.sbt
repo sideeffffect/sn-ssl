@@ -16,7 +16,8 @@ lazy val ssl = project
   .in(file("ssl"))
   .enablePlugins(ScalaNativePlugin)
   .settings(
-    name := "sn-ssl"
+    name := "sn-ssl",
+    scalacOptions -= "-source:3.0-migration"
   )
 
 lazy val tests = crossProject(NativePlatform, JVMPlatform)
