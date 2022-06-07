@@ -22,7 +22,7 @@ import org.junit.Test
 class SSLParametersTest {
 
   @Test
-  def emptyConstructor = {
+  def emptyConstructor() = {
     val p = new SSLParameters()
     assertNull(p.getCipherSuites())
     assertNull(p.getProtocols())
