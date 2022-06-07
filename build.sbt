@@ -8,7 +8,7 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 
 ThisBuild / crossScalaVersions := Seq("3.1.2", "2.12.15", "2.13.8")
 
-lazy val root = tlCrossRootProject.aggregate(ssl)
+lazy val root = tlCrossRootProject.aggregate(ssl, tests)
 
 lazy val ssl = project
   .in(file("ssl"))
