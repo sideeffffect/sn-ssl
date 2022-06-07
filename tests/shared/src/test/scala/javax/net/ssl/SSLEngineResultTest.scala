@@ -22,6 +22,29 @@ import org.junit.Test
 class SSLEngineResultTest {
 
   @Test
+  def handshakeStatus() = {
+    import SSLEngineResult.HandshakeStatus._
+
+    assertEquals(0, NOT_HANDSHAKING.ordinal().toLong)
+    assertEquals("NOT_HANDSHAKING", NOT_HANDSHAKING.name())
+
+    assertEquals(1, FINISHED.ordinal().toLong)
+    assertEquals("FINISHED", FINISHED.name())
+
+    assertEquals(2, NEED_TASK.ordinal().toLong)
+    assertEquals("NEED_TASK", NEED_TASK.name())
+
+    assertEquals(3, NEED_WRAP.ordinal().toLong)
+    assertEquals("NEED_WRAP", NEED_WRAP.name())
+
+    assertEquals(4, NEED_UNWRAP.ordinal().toLong)
+    assertEquals("NEED_UNWRAP", NEED_UNWRAP.name())
+
+    assertEquals(5, NEED_UNWRAP_AGAIN.ordinal().toLong)
+    assertEquals("NEED_UNWRAP_AGAIN", NEED_UNWRAP_AGAIN.name())
+  }
+
+  @Test
   def status() = {
     import SSLEngineResult.Status._
 

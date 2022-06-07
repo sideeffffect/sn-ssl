@@ -20,6 +20,10 @@ class SSLEngineResult {}
 
 object SSLEngineResult {
 
+  enum HandshakeStatus extends Enum[HandshakeStatus] {
+    case NOT_HANDSHAKING, FINISHED, NEED_TASK, NEED_WRAP, NEED_UNWRAP, NEED_UNWRAP_AGAIN
+  }
+
   enum Status extends Enum[Status] {
     case BUFFER_UNDERFLOW, BUFFER_OVERFLOW, OK, CLOSED
   }

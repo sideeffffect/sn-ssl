@@ -20,6 +20,16 @@ class SSLEngineResult {}
 
 object SSLEngineResult {
 
+  class HandshakeStatus(name: String, ord: Int) extends Enum[HandshakeStatus](name, ord)
+  object HandshakeStatus {
+    val NOT_HANDSHAKING = new HandshakeStatus("NOT_HANDSHAKING", 0)
+    val FINISHED = new HandshakeStatus("FINISHED", 1)
+    val NEED_TASK = new HandshakeStatus("NEED_TASK", 2)
+    val NEED_WRAP = new HandshakeStatus("NEED_WRAP", 3)
+    val NEED_UNWRAP = new HandshakeStatus("NEED_UNWRAP", 4)
+    val NEED_UNWRAP_AGAIN = new HandshakeStatus("NEED_UNWRAP_AGAIN", 5)
+  }
+
   class Status(name: String, ord: Int) extends Enum[Status](name, ord)
   object Status {
     val BUFFER_UNDERFLOW = new Status("BUFFER_UNDERFLOW", 0)
