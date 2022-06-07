@@ -21,7 +21,7 @@ import java.util
 import scala.beans.BeanProperty
 
 class SSLParameters {
-  
+
   @BeanProperty
   var algorithmConstraints: AlgorithmConstraints = null
 
@@ -57,5 +57,15 @@ class SSLParameters {
 
   @BeanProperty
   var wantClientAuth: Boolean = false
+
+  def this(cipherSuites: Array[String]) = {
+    this()
+    this.cipherSuites = cipherSuites
+  }
+
+  def this(cipherSuites: Array[String], protocols: Array[String]) = {
+    this(cipherSuites)
+    this.protocols = protocols
+  }
 
 }
