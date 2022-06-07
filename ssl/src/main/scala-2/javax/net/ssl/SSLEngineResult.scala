@@ -16,7 +16,26 @@
 
 package javax.net.ssl
 
-class SSLEngineResult {}
+import scala.beans.BeanProperty
+
+import SSLEngineResult._
+
+class SSLEngineResult(
+    @BeanProperty status: Status,
+    @BeanProperty handshakeStatus: HandshakeStatus,
+    val bytesConsumed: Int,
+    val bytesProduced: Int,
+    val sequenceNumber: Long
+) {
+
+  def this(
+      status: Status,
+      handshakeStatus: HandshakeStatus,
+      bytesConsumed: Int,
+      bytesProduced: Int
+  ) = this(status, handshakeStatus, bytesConsumed, bytesProduced, -1)
+
+}
 
 object SSLEngineResult {
 
