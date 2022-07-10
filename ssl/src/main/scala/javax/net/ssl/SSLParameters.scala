@@ -28,8 +28,10 @@ class SSLParameters {
   @BeanProperty
   var applicationProtocols: Array[String] = null
 
-  @BeanProperty
   var cipherSuites: Array[String] = null
+  def getCipherSuites(): Array[String] = cipherSuites
+  def setCipherSuites(cipherSuites: Array[String]): Unit =
+    this.cipherSuites = cipherSuites
 
   @BeanProperty
   var enableRetransmissions: Boolean = true
@@ -40,11 +42,15 @@ class SSLParameters {
   @BeanProperty
   var maximumPacketSize: Int = 0
 
-  @BeanProperty
   var needClientAuth: Boolean = false
+  def getNeedClientAuth(): Boolean = needClientAuth
+  def setNeedClientAuth(needClientAuth: Boolean): Unit =
+    this.needClientAuth = needClientAuth
 
-  @BeanProperty
   var protocols: Array[String] = null
+  def getProtocols(): Array[String] = protocols
+  def setProtocols(protocols: Array[String]): Unit =
+    this.protocols = protocols
 
   @BeanProperty
   var serverNames: util.List[SNIServerName] = null
@@ -55,8 +61,10 @@ class SSLParameters {
   @BeanProperty
   var useCipherSuitesOrder: Boolean = false
 
-  @BeanProperty
   var wantClientAuth: Boolean = false
+  def getWantClientAuth(): Boolean = wantClientAuth
+  def setWantClientAuth(wantClientAuth: Boolean): Unit =
+    this.wantClientAuth = wantClientAuth
 
   def this(cipherSuites: Array[String]) = {
     this()
