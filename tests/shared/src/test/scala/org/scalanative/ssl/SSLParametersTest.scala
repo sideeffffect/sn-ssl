@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package javax.net.ssl
+package org.scalanative.ssl
 
 import org.junit.Assert._
 import org.junit.Test
+
+import javax.net.ssl.SSLParameters
 
 class SSLParametersTest {
 
