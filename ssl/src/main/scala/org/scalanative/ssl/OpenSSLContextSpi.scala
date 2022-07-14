@@ -47,7 +47,7 @@ class OpenSSLContextSpi(ctx: unsafe.Ptr[openssl.ssl.SSL_CTX])
           0: unsafe.CInt // TODO
         }
 
-        openssl.ssl.SSL_CTX_set_cert_verify_callback(ctx, cb, null)
+        openssl.ssl.SSL_CTX_set_cert_verify_callback(ctx, cb(_, _), null)
 
         gcRoot.add(cb)
     }
