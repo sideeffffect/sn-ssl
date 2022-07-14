@@ -19,6 +19,9 @@ package org.scalanative.ssl
 import org.scalanative.openssl
 
 import java.security.SecureRandom
+import java.util.Collections
+import java.util.IdentityHashMap
+import java.util.Set
 import javax.net.ssl.KeyManager
 import javax.net.ssl.SSLContextSpi
 import javax.net.ssl.SSLEngine
@@ -26,16 +29,30 @@ import javax.net.ssl.SSLServerSocketFactory
 import javax.net.ssl.SSLSessionContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
-import scala.scalanative.unsafe.Ptr
+import javax.net.ssl.X509TrustManager
+import scala.scalanative.unsafe
 
-class OpenSSLContextSpi(ctx: Ptr[openssl.ssl.SSL_CTX])
+class OpenSSLContextSpi(ctx: unsafe.Ptr[openssl.ssl.SSL_CTX])
     extends SSLContextSpi
     with AutoCloseable {
 
+  private[this] val gcRoot: Set[Any] = Collections.newSetFromMap(new IdentityHashMap)
+
   def this() = this(openssl.ssl.SSL_CTX_new(openssl.ssl.TLS_method()))
 
-  def engineInit(km: Array[KeyManager], tm: Array[TrustManager], random: SecureRandom): Unit =
-    ???
+  def engineInit(km: Array[KeyManager], tm: Array[TrustManager], random: SecureRandom): Unit = {
+    Option(tm).flatMap(_.collectFirst { case x509tm: X509TrustManager => x509tm }).foreach {
+      _ =>
+        val cb = { (_: unsafe.Ptr[openssl.types.X509_STORE_CTX], _: unsafe.Ptr[Unit]) =>
+          0: unsafe.CInt // TODO
+        }
+
+        openssl.ssl.SSL_CTX_set_cert_verify_callback(ctx, cb, null)
+
+        gcRoot.add(cb)
+    }
+
+  }
 
   def engineGetSocketFactory(): SSLSocketFactory = ???
 
