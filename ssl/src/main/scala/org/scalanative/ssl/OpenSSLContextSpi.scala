@@ -49,6 +49,6 @@ class OpenSSLContextSpi(ctx: Ptr[openssl.ssl.SSL_CTX])
 
   def engineGetClientSessionContext(): SSLSessionContext = ???
 
-  override def close(): Unit = openssl.ssl.SSL_CTX_free(ctx)
+  def close(): Unit = openssl.ssl.SSL_CTX_free(ctx)
 
 }
