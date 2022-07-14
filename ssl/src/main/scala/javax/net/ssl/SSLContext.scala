@@ -19,6 +19,7 @@ package javax.net.ssl
 import java.security.Provider
 import scala.beans.BeanProperty
 import java.security.SecureRandom
+import org.scalanative.ssl.OpenSSLContextSpi
 
 class SSLContext(
     contextSpi: SSLContextSpi,
@@ -30,5 +31,13 @@ class SSLContext(
 
   def init(km: Array[KeyManager], tm: Array[TrustManager], random: SecureRandom): Unit =
     contextSpi.engineInit(km, tm, random)
+
+}
+
+object SSLContext {
+
+  private[this] lazy val default = new SSLContext(new OpenSSLContextSpi(), null, null)
+
+  def getDefault(): SSLContext = default
 
 }
