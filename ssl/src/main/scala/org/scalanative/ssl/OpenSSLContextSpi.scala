@@ -30,7 +30,12 @@ import javax.net.ssl.SSLSessionContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+import scala.annotation.nowarn
+import scala.scalanative.runtime.Intrinsics
+import scala.scalanative.runtime.fromRawPtr
 import scala.scalanative.unsafe
+
+import OpenSSLContextSpi._
 
 class OpenSSLContextSpi(ctx: unsafe.Ptr[openssl.ssl.SSL_CTX])
     extends SSLContextSpi
@@ -42,14 +47,14 @@ class OpenSSLContextSpi(ctx: unsafe.Ptr[openssl.ssl.SSL_CTX])
 
   def engineInit(km: Array[KeyManager], tm: Array[TrustManager], random: SecureRandom): Unit = {
     Option(tm).flatMap(_.collectFirst { case x509tm: X509TrustManager => x509tm }).foreach {
-      _ =>
-        val cb = { (_: unsafe.Ptr[openssl.types.X509_STORE_CTX], _: unsafe.Ptr[Unit]) =>
-          0: unsafe.CInt // TODO
-        }
-
-        openssl.ssl.SSL_CTX_set_cert_verify_callback(ctx, cb(_, _), null)
-
-        gcRoot.add(cb)
+      x509tm =>
+        openssl
+          .ssl
+          .SSL_CTX_set_cert_verify_callback(
+            ctx,
+            certVerifyCallback(_, _),
+            fromRawPtr(Intrinsics.castObjectToRawPtr(x509tm)))
+        gcRoot.add(x509tm)
     }
 
   }
@@ -67,5 +72,16 @@ class OpenSSLContextSpi(ctx: unsafe.Ptr[openssl.ssl.SSL_CTX])
   def engineGetClientSessionContext(): SSLSessionContext = ???
 
   def close(): Unit = openssl.ssl.SSL_CTX_free(ctx)
+
+}
+
+object OpenSSLContextSpi {
+
+  @nowarn
+  private def certVerifyCallback(
+      ctx: unsafe.Ptr[openssl.types.X509_STORE_CTX],
+      tm: unsafe.Ptr[X509TrustManager]): unsafe.CInt = {
+    0 // TODO
+  }
 
 }
