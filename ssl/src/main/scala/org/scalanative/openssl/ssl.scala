@@ -33,10 +33,10 @@ object ssl {
 
   def TLS_method(): Ptr[SSL_METHOD] = extern
 
-  def SSL_CTX_set_cert_verify_callback[A](
+  def SSL_CTX_set_cert_verify_callback(
       ctx: Ptr[SSL_CTX],
-      callback: CFuncPtr2[Ptr[types.X509_STORE_CTX], Ptr[A], CInt],
-      arg: Ptr[A]
+      callback: CFuncPtr2[Ptr[types.X509_STORE_CTX], Ptr[Byte], CInt],
+      arg: Ptr[Byte]
   ): Unit = extern
 
 }

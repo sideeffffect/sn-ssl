@@ -80,7 +80,7 @@ object OpenSSLContextSpi {
   @nowarn
   private def certVerifyCallback(
       ctx: unsafe.Ptr[openssl.types.X509_STORE_CTX],
-      tm: unsafe.Ptr[X509TrustManager]): unsafe.CInt = {
+      tm: unsafe.Ptr[Byte]): unsafe.CInt = {
     0 // TODO
   }
 
